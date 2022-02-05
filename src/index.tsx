@@ -1,11 +1,14 @@
 //alias
-import { Greetings } from "@components";
+import App from "./App";
 import React from "react";
 import ReactDOM from "react-dom";
+import { BrowserRouter } from "react-router-dom";
 
 const rootElement = document.getElementById("app");
 
 ReactDOM.render(
-	<Greetings />,
+	<React.StrictMode>
+		  <App />
+	</React.StrictMode>,
 	rootElement
 );
