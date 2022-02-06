@@ -1,11 +1,13 @@
 import React from "react";
-import AuthorizationPage from "./pages/authorization/authorization";
+import LoginPage from "./pages/authorization/login";
 import GamesPage from "./pages/games/games";
 import HomePage from "./pages/home/home";
 import StatisticsPage from "./pages/statistics/statistics";
 import TextbookPage from "./pages/textbook/textbook";
 import { Route, Routes, BrowserRouter } from "react-router-dom";
 import { Navigation } from "./components";
+import RegistrationPage from "./pages/authorization/registration";
+
 
 function App() {
   return (
@@ -13,7 +15,8 @@ function App() {
       <Navigation />
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/authorization" element={<AuthorizationPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/registration" element={<RegistrationPage />} />
         <Route path="/textbook" element={<TextbookPage />} />
         <Route path="/games" element={<GamesPage />} />
         <Route path="/statistics" element={<StatisticsPage />} />

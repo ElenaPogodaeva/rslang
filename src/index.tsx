@@ -2,13 +2,16 @@
 import App from "./App";
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter } from "react-router-dom";
+import { Provider } from "react-redux";
+import { store } from "./store";
 
 const rootElement = document.getElementById("app");
 
 ReactDOM.render(
 	<React.StrictMode>
+		<Provider store={store}>
 		  <App />
+		</Provider>		  
 	</React.StrictMode>,
 	rootElement
 );

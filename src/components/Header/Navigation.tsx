@@ -10,9 +10,6 @@ export const Navigation = () => {
             <Link to="/">Home</Link>
           </li>
           <li>
-            <Link to="/authorization">authorization</Link>
-          </li>
-          <li>
             <Link to="/textbook">textbook</Link>
           </li>
           <li>
