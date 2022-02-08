@@ -40,13 +40,14 @@ export class Api {
       const response = await fetch(url, config);
 
       if (!response.ok) {
-        const { ErrorDescription } = await response.json();
-        throw new Error(ErrorDescription);
+        const error = await response.json();
+        throw new Error(error);
       }
+
       return response.json();
     }
     catch(error) {
-      return error;
+      throw error;
     }
   }
 
@@ -63,9 +64,9 @@ export class Api {
   async getWordById (wordId: string) {
     const response = await fetch(`${baseUrl}/words/${wordId}`);
   
-    if (response.status !== 200) {
-      const { ErrorDescription } = await response.json();
-      throw new Error(ErrorDescription);
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error);
     }
   
     const content = await response.json();
@@ -95,7 +96,7 @@ export class Api {
       return content;
     }
     catch(error) {
-      return null;
+      throw error;
     }
   };
 
@@ -111,19 +112,17 @@ export class Api {
         body: JSON.stringify(user),
       });
   
-      if (response.status === 417) {
-        throw new Error('User with this e-mail exists');
-      } else if (response.status === 422) {
-        throw new Error('Incorrect e-mail or password');
-      } else if (response.status !== 200) {
-        throw new Error('Error');
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error);
       }
+
       const content = await response.json();
       console.log(content);
       return content;
     }
     catch (error) {
-      console.log(error);
+      throw error;
     }
   };
 
@@ -134,7 +133,7 @@ export class Api {
       return response;
     }
     catch(error) {
-      return error;
+      throw error;
     }
     /*
     try {
@@ -174,7 +173,7 @@ export class Api {
       return response;
     }
     catch(error) {
-      return error;
+      throw error;
     }
 
     /*
@@ -216,7 +215,7 @@ export class Api {
       return response;
     }
     catch(error) {
-      return error;
+      throw error;
     }
   } 
 
@@ -229,9 +228,9 @@ export class Api {
       }
     });
 
-    if (response.status !== 200) {
-      const { ErrorDescription } = await response.json();
-      throw new Error(ErrorDescription);
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error);
     }
   
     const content = await response.json();
@@ -248,7 +247,7 @@ export class Api {
       return response;
     }
     catch(error) {
-      return error;
+      throw error;
     }
   }
 
@@ -260,11 +259,9 @@ export class Api {
       return response;
     }
     catch(error) {
-      return error;
+      throw error;
     }
-
   }
-
 
   async getUserWord(wordId: string) {
     try {
@@ -273,7 +270,7 @@ export class Api {
       return response;
     }
     catch(error) {
-      return error;
+      throw error;
     }
   }
 
@@ -284,7 +281,7 @@ export class Api {
       return response;
     }
     catch(error) {
-      return error;
+      throw error;
     }
   }
 
@@ -296,7 +293,7 @@ export class Api {
       return response;
     }
     catch(error) {
-      return error;
+      throw error;
     }
   }
 
@@ -315,7 +312,7 @@ export class Api {
         return response;
       }
       catch(error) {
-        return error;
+        throw error;
       }
   }
 
@@ -327,7 +324,7 @@ export class Api {
       return response;
     }
     catch(error) {
-      return error;
+      throw error;
     }
   }
 
@@ -339,7 +336,7 @@ export class Api {
       return response;
     }
     catch(error) {
-      return error;
+      throw error;
     }
   }
 
@@ -351,7 +348,7 @@ export class Api {
       return response;
     }
     catch(error) {
-      return error;
+      throw error;
     }
   }
 
@@ -363,7 +360,7 @@ export class Api {
       return response;
     }
     catch(error) {
-      return error;
+      throw error;
     }
   }
 
@@ -375,7 +372,7 @@ export class Api {
       return response;
     }
     catch(error) {
-      return error;
+      throw error;
     }
   }
 
