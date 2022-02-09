@@ -15,11 +15,11 @@ function App() {
       <Navigation />
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/registration" element={<RegistrationPage />} />
-        <Route path="/textbook" element={<TextbookPage />} />
-        <Route path="/games" element={<GamesPage />} />
-        <Route path="/statistics" element={<StatisticsPage />} />
+        <Route path="login" element={<LoginPage />} />
+        <Route path="registration" element={<RegistrationPage />} />
+        <Route path="textbook" element={<TextbookPage />} />
+        <Route path="games" element={<GamesPage />} />
+        <Route path="statistics" element={<StatisticsPage />} />
       </Routes>
     </BrowserRouter>
   )
