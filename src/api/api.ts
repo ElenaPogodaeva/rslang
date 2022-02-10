@@ -85,6 +85,11 @@ export class Api {
         body: JSON.stringify(user)
       });
 
+      if (!response.ok) {
+        const error = await response.text();
+        throw new Error(error);
+      }
+
       const content = await response.json();
 
       this.userId = content.userId;
@@ -113,12 +118,11 @@ export class Api {
       });
   
       if (!response.ok) {
-        const error = await response.json();
+        const error = await response.text();
         throw new Error(error);
       }
 
       const content = await response.json();
-      console.log(content);
       return content;
     }
     catch (error) {
@@ -229,7 +233,7 @@ export class Api {
     });
 
     if (!response.ok) {
-      const error = await response.json();
+      const error = await response.text();
       throw new Error(error);
     }
   

@@ -4,9 +4,10 @@ import GamesPage from "./pages/games/games";
 import HomePage from "./pages/home/home";
 import StatisticsPage from "./pages/statistics/statistics";
 import TextbookPage from "./pages/textbook/textbook";
-import { Route, Routes, BrowserRouter } from "react-router-dom";
+import { Route, Routes, BrowserRouter, Link } from "react-router-dom";
 import { Navigation } from "./components";
 import RegistrationPage from "./pages/authorization/registration";
+import { StartPage } from "./pages/start-page/startPage";
 
 
 function App() {
@@ -14,7 +15,8 @@ function App() {
     <BrowserRouter>
       <Navigation />
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route path="/" element={<StartPage />} />
+        <Route path="home" element={<HomePage />} />
         <Route path="login" element={<LoginPage />} />
         <Route path="registration" element={<RegistrationPage />} />
         <Route path="textbook" element={<TextbookPage />} />
