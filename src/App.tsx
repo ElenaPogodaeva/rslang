@@ -7,10 +7,13 @@ import TextbookPage from "./pages/textbook/textbook";
 import { Route, Routes, BrowserRouter } from "react-router-dom";
 import { Navigation } from "./components";
 
+import MiniDrawer from "./components/Header/Menu";
+
 function App() {
   return (
     <BrowserRouter>
       <Navigation />
+      <MiniDrawer />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/authorization" element={<AuthorizationPage />} />
