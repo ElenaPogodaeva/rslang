@@ -29,7 +29,7 @@ const RegistrationPage = () => {
 
      dispatch(setUser({token: loginUser.token, email: createUser.email, id: createUser.id, name: createUser.name}));
 
-     navigate('/home');
+     navigate('/');
 
     } catch (error) {
         setErrorMessage((error as Error).message);
