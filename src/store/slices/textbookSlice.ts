@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  page: null,
+  words: [],
 };
 
 const textbookSlice = createSlice({
@@ -9,11 +9,21 @@ const textbookSlice = createSlice({
   initialState,
   reducers: {
     setTextbook(state, action) {
-      state.page = action.payload.page;
+      state.words = action.payload.words;
     },
+    setWordById (state, action) {
+      let word: any = state.words.find(({_id}) => _id === action.payload.id);
+      word.userWord = {difficulty: "hard"};   
+      state.words = state.words;
+    },
+    removeWord(state, action) {
+      let word: any = state.words.find(({_id}) => _id === action.payload.id);
+      word.userWord = {};
+      state.words = state.words;
+    }
   },
 });
 
-export const {setTextbook} = textbookSlice.actions;
+export const {setTextbook, setWordById, removeWord} = textbookSlice.actions;
 
 export default textbookSlice.reducer;

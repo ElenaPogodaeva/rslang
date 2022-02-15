@@ -1,9 +1,12 @@
-import { Tab, Tabs, Typography } from "@mui/material";
+import { Pagination, Tab, Tabs, PaginationItem, CircularProgress } from "@mui/material";
 import { Api } from "../../api/api";
 import React, { useState } from "react";
 import { useNavigate, useParams } from 'react-router-dom';
 import { WordCard } from "../../components/Word-card/word-card";
 import style from './textbook.scss';
+import { useAuth } from "../../hooks/use-auth";
+import { useDispatch, useSelector } from "react-redux";
+import { setTextbook } from "../../store/slices/textbookSlice";
 
 const api = new Api();
 
@@ -40,17 +43,19 @@ const TABS = [
   },
   {
     id: 7,
-    label: 'Раздел 7',
+    label: 'Сложные слова',
     visible: false,
   }
 ]
 
-interface WordsInterface {
+export interface WordsInterface {
+  [key: string] : string | {difficulty: string} | number;
   audio: string;
   audioExample: string;
   audioMeaning: string;
   group: number;
   id: string;
+  _id: string;
   image: string;
   page: number;
   textExample: string;
@@ -60,18 +65,62 @@ interface WordsInterface {
   transcription: string;
   word: string;
   wordTranslate: string;
+  userWord: {difficulty: string};
+}
+
+interface IUserWordsId {
+  id: string;
+  difficulty: string;
+  wordId: string;
 }
 
 const TextbookPage = () => {
+  const [isFetching, setFetching] = React.useState(false);
   const navigate = useNavigate();
-  const { tab } = useParams();
-  const [value, setValue] = useState(Number(tab) || 0);
-  const [words, setWords] = useState([]);
+  const { tab = 0, page = 1 } = useParams();
+  const [value, setValue] = useState(Number(tab));
+
+  const user = useSelector((state: any) => state.user);
+  const {words} = useSelector((state: any) => state.textbook);
+
+  const dispatch = useDispatch();
+
+  const auth = useAuth();
 
   const fetchWords = React.useCallback(async () => {
-    const response = await api.getWords(0, value);
-    setWords(response);
-  }, [value]);
+    const response = await api.getWords(Number(page) - 1, value);
+    dispatch(setTextbook({words: response}));
+  }, [value, page]);
+
+  const fetchUserWords = React.useCallback(async () => {
+    setFetching(true)
+    const [{ paginatedResults }] = await api.getUserAggregatedWords({
+      page: Number(page) - 1,
+      group: value,
+      wordsPerPage: 20,
+      filter: Number(value) === 6 ? {'$or':[{'userWord.difficulty':'normal'},{"userWord.difficulty":"hard"}]} : {},
+    });
+
+    if(Number(value) === 6) {
+      const arrWords = [];
+      for(let i = 0; i < 6; i++) {
+        const [{ paginatedResults }] = await api.getUserAggregatedWords({
+          page: 0,
+          group: i,
+          wordsPerPage: 20,
+          filter: {'$or':[{'userWord.difficulty':'normal'},{"userWord.difficulty":"hard"}]},
+        });
+        arrWords.push(...paginatedResults)
+      }
+
+      dispatch(setTextbook({words: arrWords}));
+      setFetching(false);
+      return;
+    }
+    
+    dispatch(setTextbook({words: paginatedResults}));
+    setFetching(false);
+  }, [value, page]);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -79,27 +128,41 @@ const TextbookPage = () => {
   };
 
   React.useEffect(() => {
-    fetchWords();
-  }, [tab]);
- 
+    if (user.id) {
+      fetchUserWords();
+    } else {
+      fetchWords();
+    }
+
+  }, [tab, page]);
+
   return (
     <div className={style.MainContainer}>
       <h2 className={style.textbookTitle}>Учебник</h2>
       <Tabs 
-        value={value} 
+        value={value}
         onChange={handleChange} 
         aria-label="basic tabs example"
         sx={{
-          mb: 5,
+          mb: 4,
           flexWrap: 'wrap',
           justifyContent: 'center',
           }}>
-        {TABS.map(({label, id}) => <Tab key={`simple-tab-${id}`} label={label} id={`simple-tab-${id}`} aria-controls={`simple-tabpanel-${id}`}/>)}
+        {TABS.map(({label, id, visible}) => (auth.isAuth || visible)
+          ? <Tab key={`simple-tab-${id}`} label={label} id={`simple-tab-${id}`} aria-controls={`simple-tabpanel-${id}`}/>
+          : null)}
       </Tabs>
+      <div className={style.paginationContainer}>
+        <Pagination page={Number(page)} count={30} onChange={(e, pageNum) => navigate(`/textbook/${value}/${pageNum}`)} />
+      </div>
       <div>
+        <div className={style.progressCenter}>
+          {isFetching && <CircularProgress size={80} sx={{position: "absolute"}} />}
+        </div>
+      
         {
           words.map((v: WordsInterface) => 
-          <WordCard key={v.id} 
+          <WordCard key={v.id || v._id} 
             imgSrc={v.image} 
             word={v.word} 
             trnscr={v.transcription} 
@@ -108,6 +171,12 @@ const TextbookPage = () => {
             txtExample={v.textExample}
             txtMeaningTranslt = {v.textMeaningTranslate}
             txtExampleTrslt = {v.textExampleTranslate}
+            audio={v.audio}
+            audioExample={v.audioExample}
+            audioMeaning={v.audioMeaning}
+            id={v.id || v._id}
+            userWord={v.userWord}
+            tab={value}
             />
           )
         }

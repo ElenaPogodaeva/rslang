@@ -23,7 +23,7 @@ export type Word = {
 
 export type UserWord = {
   difficulty: string,
-  optional: {},
+  optional?: {},
 };
 
 export type UserLogin = {

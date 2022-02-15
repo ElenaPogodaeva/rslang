@@ -34,7 +34,7 @@ export const LoginForm: FC<FormProps> = ({title, handleClick, isFetching}) => {
             name="email"
             placeholder="email"
             >
-            {(props:FieldProps) => <FormInput label="Name" id={"name"} {...props}/>}
+            {(props:FieldProps) => <FormInput label="email" id={"email"} {...props}/>}
             </Field>
           </div>
           <div className={style.controlsWrapper__control}>
