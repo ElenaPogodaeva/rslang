@@ -212,7 +212,6 @@ export class Api {
   }
 
   async deleteUser () {
-
     try {
       const url = `${baseUrl}/users/${this.userId}`;
       const response = await this.createResponse(url, 'DELETE');
@@ -297,7 +296,7 @@ export class Api {
       return response;
     }
     catch(error) {
-      throw error;
+      return {};
     }
   }
 

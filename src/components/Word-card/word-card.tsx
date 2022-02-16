@@ -24,6 +24,7 @@ interface WordCardProps {
   id: string;
   userWord: {difficulty: string};
   tab: number;
+  fetchWords: () => void;
 }
 
 const player = new Audio();
@@ -43,7 +44,7 @@ function audioIterator(array: string[]){
 
 export const WordCard: FC<WordCardProps> = ({
   id, imgSrc, word, trnscr, trnslt, txtMeaning, txtExample, txtExampleTrslt, 
-  txtMeaningTranslt, audio, audioExample, audioMeaning, userWord, tab
+  txtMeaningTranslt, audio, audioExample, audioMeaning, userWord, tab, fetchWords
 }) => {
   const auth = useAuth();
   const dispatch = useDispatch();
@@ -81,24 +82,33 @@ export const WordCard: FC<WordCardProps> = ({
     }
   }
 
-
   const addToHard = React.useCallback(async () => {
     await api.createUserWord(id, {difficulty: 'hard'});
-    dispatch(setWordById({id}));
+    dispatch(setWordById({id, difficulty: 'hard'}));
   }, [id]);
+  
+  const addToStudy = React.useCallback(async () => {
+    await api.deleteUserWord(id);
+    await api.createUserWord(id, {difficulty: 'study'});
+    await fetchWords();
+  }, [id, fetchWords]);
 
   const removeHardCard = React.useCallback(async () => {
     await api.deleteUserWord(id);
-    dispatch(removeWord({id}));
-  }, [id]);
+    await fetchWords();
+  }, [id, fetchWords]);
 
-  const color = '#ff8d8d'
+  const colorHard = '#ff8d8d';
+  const colorStudy = '#a2ffc5';
   return (
-    <Card sx={
+    <Card raised={true} sx={
       {
         mb: 5,
         display: "flex",
-        background: userWord ? color : 'initial'
+        background: (userWord && userWord.difficulty === 'hard')
+          ? colorHard
+          : (userWord && userWord.difficulty === 'study')
+            ? colorStudy : 'initial'
       }
       }>
       <CardMedia
@@ -125,9 +135,9 @@ export const WordCard: FC<WordCardProps> = ({
             {
               tab === 6 ? 
               <Button onClick={removeHardCard} variant='contained' sx={{height: '30px'}}>Удалить</Button> :
-              <Button onClick={addToHard} variant={userWord ? 'contained' : 'text'} sx={{height: '30px'}}>Сложное</Button>
+              <Button onClick={addToHard} disabled={userWord ? true : false} variant={userWord ? 'contained' : 'text'} sx={{height: '30px'}}>Сложное</Button>
             }
-            <Button variant="text" sx={{height: '30px'}}>Изученное</Button>
+            <Button onClick={addToStudy} variant="text" sx={{height: '30px'}}>Изученное</Button>
           </Stack> :
           null
           }

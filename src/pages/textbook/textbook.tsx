@@ -1,6 +1,6 @@
 import { Pagination, Tab, Tabs, PaginationItem, CircularProgress } from "@mui/material";
 import { Api } from "../../api/api";
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { useNavigate, useParams } from 'react-router-dom';
 import { WordCard } from "../../components/Word-card/word-card";
 import style from './textbook.scss';
@@ -79,9 +79,16 @@ const TextbookPage = () => {
   const navigate = useNavigate();
   const { tab = 0, page = 1 } = useParams();
   const [value, setValue] = useState(Number(tab));
+  const [total, setTotal] = useState(0);
 
   const user = useSelector((state: any) => state.user);
   const {words} = useSelector((state: any) => state.textbook);
+
+  const paginationColor = useMemo(() => {
+    return words.every(({ userWord }: any) => userWord && userWord.difficulty === 'study')
+      ? 'primary'
+      : 'secondary';
+  }, [words]);
 
   const dispatch = useDispatch();
 
@@ -94,31 +101,34 @@ const TextbookPage = () => {
 
   const fetchUserWords = React.useCallback(async () => {
     setFetching(true)
-    const [{ paginatedResults }] = await api.getUserAggregatedWords({
-      page: Number(page) - 1,
-      group: value,
-      wordsPerPage: 20,
-      filter: Number(value) === 6 ? {'$or':[{'userWord.difficulty':'normal'},{"userWord.difficulty":"hard"}]} : {},
-    });
+
+    let response = [];
+    let total = 0;
 
     if(Number(value) === 6) {
-      const arrWords = [];
-      for(let i = 0; i < 6; i++) {
-        const [{ paginatedResults }] = await api.getUserAggregatedWords({
-          page: 0,
-          group: i,
-          wordsPerPage: 20,
-          filter: {'$or':[{'userWord.difficulty':'normal'},{"userWord.difficulty":"hard"}]},
-        });
-        arrWords.push(...paginatedResults)
-      }
+      const [{ paginatedResults, totalCount: [{ count } = {count: 0}] }] = await api.getUserAggregatedWords({
+        page: Number(page) - 1,
+        wordsPerPage: 20,
+        filter: {'$and':[{"userWord.difficulty":"hard"}]},
+      });
 
-      dispatch(setTextbook({words: arrWords}));
-      setFetching(false);
-      return;
+      response = paginatedResults;
+      total = count;
+    } else {
+      const [{ paginatedResults, totalCount: [{ count } = {count: 0}] }] = await api.getUserAggregatedWords({
+        page: Number(page) - 1,
+        group: value,
+        wordsPerPage: 20,
+        filter: Number(value) === 6 ? {'$or':[{'userWord.difficulty':'normal'},{"userWord.difficulty":"hard"}]} : {},
+      });
+
+      response = paginatedResults;
+      total = count;
+
     }
     
-    dispatch(setTextbook({words: paginatedResults}));
+    dispatch(setTextbook({words: response}));
+    setTotal(total);
     setFetching(false);
   }, [value, page]);
 
@@ -153,12 +163,15 @@ const TextbookPage = () => {
           : null)}
       </Tabs>
       <div className={style.paginationContainer}>
-        <Pagination page={Number(page)} count={30} onChange={(e, pageNum) => navigate(`/textbook/${value}/${pageNum}`)} />
-      </div>
+        <Pagination color={paginationColor} page={Number(page)} count={Math.ceil(total / 20)} onChange={(e, pageNum) => navigate(`/textbook/${value}/${pageNum}`)} />
+      </div> 
       <div>
+        {
+        isFetching && 
         <div className={style.progressCenter}>
-          {isFetching && <CircularProgress size={80} sx={{position: "absolute"}} />}
+          <CircularProgress size={80} sx={{position: "absolute"}} />
         </div>
+        }
       
         {
           words.map((v: WordsInterface) => 
@@ -177,6 +190,7 @@ const TextbookPage = () => {
             id={v.id || v._id}
             userWord={v.userWord}
             tab={value}
+            fetchWords={fetchUserWords}
             />
           )
         }

@@ -13,12 +13,12 @@ const textbookSlice = createSlice({
     },
     setWordById (state, action) {
       let word: any = state.words.find(({_id}) => _id === action.payload.id);
-      word.userWord = {difficulty: "hard"};   
+      word.userWord = {difficulty: action.payload.difficulty};   
       state.words = state.words;
     },
     removeWord(state, action) {
       let word: any = state.words.find(({_id}) => _id === action.payload.id);
-      word.userWord = {};
+      word.userWord = null;
       state.words = state.words;
     }
   },
