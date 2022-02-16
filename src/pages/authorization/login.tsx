@@ -29,7 +29,7 @@ const LoginPage = () => {
 
       dispatch(setUser({token: loginUser.token, email: getUser.email, id: getUser.id, name: getUser.name}));
 
-      navigate('/home');
+      navigate('/');
     } catch(error) {
       setErrorMessage((error as Error).message);
     } finally {
