@@ -30,7 +30,7 @@ export const RegForm: FC<FormProps> = ({title, handleClick, isFetching}) => {
     <Formik onSubmit={handleClick} initialValues={{name: '', email: '', password : ''}} validationSchema={validationSchema}>
       <Form className={style.formStyle}>
       <div className={style.controlsWrapper}>
-        <h2>Registration</h2>
+        <h2 className={style.title}>Регистрация</h2>
         <div className={style.controlsWrapper__control}>
         <Field 
             type="text"
@@ -63,6 +63,7 @@ export const RegForm: FC<FormProps> = ({title, handleClick, isFetching}) => {
             {title}
           </Button>
           {isFetching && <CircularProgress />}
+          <div className={style.minPicReg}></div>
       </div>
       </Form>
     </Formik>

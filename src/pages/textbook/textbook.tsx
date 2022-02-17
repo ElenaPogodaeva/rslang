@@ -7,6 +7,7 @@ import style from './textbook.scss';
 import { useAuth } from "../../hooks/use-auth";
 import { useDispatch, useSelector } from "react-redux";
 import { setTextbook } from "../../store/slices/textbookSlice";
+import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
 
 const api = new Api();
 
@@ -84,10 +85,18 @@ const TextbookPage = () => {
   const user = useSelector((state: any) => state.user);
   const {words} = useSelector((state: any) => state.textbook);
 
+  const theme = createTheme({
+    palette: {
+      secondary: {
+        main: '#c6d6f6',
+      },
+    },
+  });
+
   const paginationColor = useMemo(() => {
     return words.every(({ userWord }: any) => userWord && userWord.difficulty === 'study')
-      ? 'primary'
-      : 'secondary';
+      ? 'secondary'
+      : 'standard';
   }, [words]);
 
   const dispatch = useDispatch();
@@ -95,8 +104,10 @@ const TextbookPage = () => {
   const auth = useAuth();
 
   const fetchWords = React.useCallback(async () => {
+    setFetching(true)
     const response = await api.getWords(Number(page) - 1, value);
     dispatch(setTextbook({words: response}));
+    setFetching(false);
   }, [value, page]);
 
   const fetchUserWords = React.useCallback(async () => {
@@ -157,13 +168,17 @@ const TextbookPage = () => {
           mb: 4,
           flexWrap: 'wrap',
           justifyContent: 'center',
+          backgroundColor: '#00000099',
+          borderRadius: '17px',
           }}>
         {TABS.map(({label, id, visible}) => (auth.isAuth || visible)
-          ? <Tab key={`simple-tab-${id}`} label={label} id={`simple-tab-${id}`} aria-controls={`simple-tabpanel-${id}`}/>
+          ? <Tab sx={{color: '#fff'}} key={`simple-tab-${id}`} label={label} id={`simple-tab-${id}`} aria-controls={`simple-tabpanel-${id}`}/>
           : null)}
       </Tabs>
       <div className={style.paginationContainer}>
-        <Pagination color={paginationColor} page={Number(page)} count={Math.ceil(total / 20)} onChange={(e, pageNum) => navigate(`/textbook/${value}/${pageNum}`)} />
+      <ThemeProvider theme={theme}>
+        <Pagination color={paginationColor} page={Number(page)} count={auth.isAuth ? Math.ceil(total / 20) : 30} onChange={(e, pageNum) => navigate(`/textbook/${value}/${pageNum}`)} />
+      </ThemeProvider>
       </div> 
       <div>
         {

@@ -27,7 +27,7 @@ export const LoginForm: FC<FormProps> = ({title, handleClick, isFetching}) => {
     <Formik onSubmit={handleClick} initialValues={{email: '', password : ''}} validationSchema={validationSchema}>
       <Form className={style.formStyle}>
         <div className={style.controlsWrapper}>
-          <h2>Log in</h2>
+          <h2 className={style.title}>Войти</h2>
           <div className={style.controlsWrapper__control}>
             <Field 
             type="email"
@@ -50,6 +50,7 @@ export const LoginForm: FC<FormProps> = ({title, handleClick, isFetching}) => {
             {title}
           </Button>
           {isFetching && <CircularProgress />}
+          <div className={style.minPicLog}></div>
         </div>
       </Form>
     </Formik>

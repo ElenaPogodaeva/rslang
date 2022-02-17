@@ -99,7 +99,8 @@ export const WordCard: FC<WordCardProps> = ({
   }, [id, fetchWords]);
 
   const colorHard = '#ff8d8d';
-  const colorStudy = '#a2ffc5';
+  const colorStudy = '#c6d6f6';
+  const colorCard = '#fff';
   return (
     <Card raised={true} sx={
       {
@@ -108,7 +109,7 @@ export const WordCard: FC<WordCardProps> = ({
         background: (userWord && userWord.difficulty === 'hard')
           ? colorHard
           : (userWord && userWord.difficulty === 'study')
-            ? colorStudy : 'initial'
+            ? colorStudy : colorCard
       }
       }>
       <CardMedia
@@ -141,7 +142,7 @@ export const WordCard: FC<WordCardProps> = ({
           </Stack> :
           null
           }
-          
+
         </div>
         
         <div className={style.subttlContainer}>
