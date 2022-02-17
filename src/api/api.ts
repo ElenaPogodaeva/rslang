@@ -23,7 +23,7 @@ export class Api {
   async createResponse(url: string, method: string, data: User | UserWord | UserLogin | Statistic | Settings | null = null) {
     try {
       const token = await this.getToken();
-      console.log(token);
+
       const config: Config = {
         method: method,
         headers: {
@@ -212,7 +212,6 @@ export class Api {
   }
 
   async deleteUser () {
-
     try {
       const url = `${baseUrl}/users/${this.userId}`;
       const response = await this.createResponse(url, 'DELETE');
@@ -297,7 +296,7 @@ export class Api {
       return response;
     }
     catch(error) {
-      throw error;
+      return {};
     }
   }
 
@@ -383,14 +382,13 @@ export class Api {
   updateStorage() {
 
     this.tokenExpiresIn = this.getExpireTime();
-
+    
     localStorage.setItem('userId', this.userId);
     localStorage.setItem('userName', this.userName);
     localStorage.setItem('token', this.token);
     localStorage.setItem('refreshToken', this.refreshToken);
     localStorage.setItem('tokenExpiresIn', this.tokenExpiresIn);
   }
-
 
   parseJwt (token: string) {
     /*

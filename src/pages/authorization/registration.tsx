@@ -2,7 +2,7 @@ import { Api } from "../../api/api";
 import React from "react";
 import { Link } from "react-router-dom";
 import { RegForm } from "../../components/Form/regForm";
-import { Alert } from "@mui/material";
+import { Alert, Card } from "@mui/material";
 import { setUser } from "../../store/slices/userSlice";
 import { useAppDispatch } from "../../hooks/redux-hooks";
 import { useNavigate } from "react-router-dom";
@@ -40,16 +40,22 @@ const RegistrationPage = () => {
   
   
   return (
-    <div>
-      {errorMessage && <Alert severity="error">{errorMessage}</Alert>}
-      <RegForm
-        title="Sign in"
-        handleClick={createUser}
-        isFetching={isFetching}
-      />
-      <div className={style.linkContainer}>
-        <Link to="/login">Log in</Link>
-      </div> 
+    <div className={style.MainContainer}>
+      <Card raised={true} sx={{
+          mt: 5,
+          width: '400px',
+          borderRadius: '20px',
+        }} >
+        {errorMessage && <Alert severity="error">{errorMessage}</Alert>}
+        <RegForm
+          title="Sign in"
+          handleClick={createUser}
+          isFetching={isFetching}
+        />
+        <div className={style.linkContainer}>
+          <Link to="/login">Уже зарегистрированы? Войти</Link>
+        </div> 
+      </Card>
     </div>
   )
 }

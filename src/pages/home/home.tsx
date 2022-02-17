@@ -14,9 +14,10 @@ const HomePage = () => {
  
  const auth = useAuth();
  const navigate = useNavigate();
- console.log(auth);
+
  const logOut = () => {
   dispatch(removeUser());
+  localStorage.clear();
   navigate('/');
  } 
  
@@ -84,7 +85,7 @@ const HomePage = () => {
       <span>{user.user.name}</span>
       <br></br>
       <span>{user.user.email}</span>
-      {auth.isAuth && <button onClick={logOut}>Log out</button>}      
+      {auth.isAuth && <button onClick={logOut}>Log out</button>}
     </>
   )
 }

@@ -23,7 +23,10 @@ function App() {
           {/* <Route path="home" element={<HomePage />} /> */}
           <Route path="login" element={<LoginPage />} />
           <Route path="registration" element={<RegistrationPage />} />
-          <Route path="textbook" element={<TextbookPage />} />
+          <Route path="textbook" element={<TextbookPage />} >
+            <Route path="/textbook/:tab" element={<TextbookPage />} />
+            <Route path="/textbook/:tab/:page" element={<TextbookPage />} />
+          </Route>
           <Route path="games" element={<GamesPage />} />
           <Route path="statistics" element={<StatisticsPage />} />
           <Route path="team" element={<TeamPage />} />
@@ -34,7 +37,10 @@ function App() {
         <Route path="home" element={<HomePage />} />
         <Route path="login" element={<LoginPage />} />
         <Route path="registration" element={<RegistrationPage />} />
-        <Route path="textbook" element={<TextbookPage />} />
+        <Route path="textbook" element={<TextbookPage />} >
+          <Route path="/textbook/:tab" element={<TextbookPage />} />
+          <Route path="/textbook/:tab/:page" element={<TextbookPage />} />
+        </Route>
         <Route path="games" element={<GamesPage />} />
         <Route path="statistics" element={<StatisticsPage />} />
        </Routes> */}

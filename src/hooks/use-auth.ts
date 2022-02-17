@@ -1,11 +1,20 @@
-import { useAppSelector } from "./redux-hooks";
+import { setUser } from "../store/slices/userSlice";
+import { useAppDispatch, useAppSelector } from "./redux-hooks";
 
 export function useAuth() {
-  const {email, token, id} = useAppSelector(state => state.user);
+  const {token, id} = useAppSelector(state => state.user);
+  const dispatch = useAppDispatch();
+
+  const userName = localStorage.getItem('userName');
+  const userId = localStorage.getItem('userId');
+  const tokenUser = localStorage.getItem('token');
+  
+  if(userId) {
+    dispatch(setUser({token: tokenUser, id: userId, name: userName}));
+  }
 
   return {
-    isAuth: !!email,
-    email,
+    isAuth: !!id,
     token,
     id,
   };
