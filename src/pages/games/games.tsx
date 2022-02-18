@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 
 const GamesPage = () => {
   return (
@@ -8,6 +8,7 @@ const GamesPage = () => {
       <Link to="/games/audiocall">
         <h3>AudioCall</h3>
       </Link>
+      <Link to="sprint">Спринт</Link>
     </>
   )
 }
