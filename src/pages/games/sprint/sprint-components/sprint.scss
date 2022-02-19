@@ -68,7 +68,14 @@
   width: 30%;
   height: 40px;
   border-radius: 20px;
+  font-size: 18px;
+  color: #fff;
   cursor: pointer;
+  background-color: #dff6c8c2;
+}
+
+.startActive {
+  background-color: #a6e766c2;
 }
 
 .icon {
@@ -188,4 +195,8 @@
 .score {
   font-size: 26px;
   margin-bottom: 30px;
+}
+
+.active {
+  background-color: #8d4bcabd;
 }

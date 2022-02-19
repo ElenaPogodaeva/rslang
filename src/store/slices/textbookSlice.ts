@@ -4,6 +4,10 @@ const initialState = {
   words: [],
 };
 
+export interface ITextbookState {
+  words: [],
+}
+
 const textbookSlice = createSlice({
   name: 'textbook',
   initialState,

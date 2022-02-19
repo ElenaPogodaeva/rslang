@@ -7,6 +7,12 @@ const initialState = {
   name: null,
 };
 
+export interface IUserState {
+  token: null | string,
+  id: null | string,
+  name: null | string,
+}
+
 const userSlice = createSlice({
   name: 'user',
   initialState,
