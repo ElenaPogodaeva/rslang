@@ -178,7 +178,7 @@ export const Navigation = () => {
  
   const auth = useAuth();
   const navigate = useNavigate();
-  console.log(auth);
+
   const logOut = () => {
    dispatch(removeUser());
    navigate('/');

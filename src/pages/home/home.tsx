@@ -14,7 +14,7 @@ const HomePage = () => {
  
  const auth = useAuth();
  const navigate = useNavigate();
- console.log(auth);
+ 
  const logOut = () => {
   dispatch(removeUser());
   navigate('/');
@@ -51,7 +51,7 @@ const HomePage = () => {
                 <div className={`${style.cardImg} ${style.cardImg1}`}></div>
                 <span className={style.cardTitle}>Учебник</span>
                 <p className={style.cardText}>
-                  Более 3500 тысяч слов для изучения, разбитых на разделы по уровню подготовки с удобной навигацией.
+                  Более 3500 тысяч слов для изучения, разбитых на разделы по уровню Вашей подготовки с удобной навигацией
                 </p>
               </div>
               <div className={style.card}>

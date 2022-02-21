@@ -12,27 +12,27 @@ const TeamPage = () => {
                 <span className={style.teamTitle}>Алексей Абрамов</span>
                 <a className={style.github} href="https://github.com/Al-Abramov" target="_blank">Al-Abramov</a>
                 <p className={style.teamSubtitle}>Team Lead, Разработчик</p>
-                <p className={style.teamText}>
-                  <ol>
+               
+                  <ol className={style.teamText}>
                     <li>Авторизация</li>
                     <li>Электронный учебник</li>
                     <li>Cписок слов</li>
                     <li>Игра "Спринт"</li>
                   </ol>
-                </p>
+                
               </div>
               <div className={style.teamCard}>
                 <div className={`${style.teamImg} ${style.teamImg2}`}></div>
                 <span className={style.teamTitle}>Елена Погодаева</span>
                 <a className={style.github} href="https://github.com/ElenaPogodaeva" target="_blank">ElenaPogodaeva</a>
                 <p className={style.teamSubtitle}>Разработчик</p>
-                <p className={style.teamText}>
-                  <ol>
+               
+                  <ol className={style.teamText}>
                     <li>Главная страница</li>
                     <li>Игра «Аудиовызов»</li>
                     <li>Игра «Саванна»</li>
                   </ol>
-                </p>
+              
               </div>
             </div>
           </div>
