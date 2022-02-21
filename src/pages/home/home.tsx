@@ -79,12 +79,11 @@ const HomePage = () => {
           </div>
         </section>
       </main>
-      
-      <h2>Home</h2>
+      {/* <h2>Home</h2>
       <span>{user.user.name}</span>
       <br></br>
       <span>{user.user.email}</span>
-      {auth.isAuth && <button onClick={logOut}>Log out</button>}      
+      {auth.isAuth && <button onClick={logOut}>Log out</button>} */}
     </>
   )
 }
