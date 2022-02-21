@@ -38,6 +38,7 @@ export const GamePage = ({difficulty, setGameEnd, setResultWords}:
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
+
   const fetchWords = useCallback(async () => {
     
     setIsLoading(true);
@@ -64,6 +65,7 @@ export const GamePage = ({difficulty, setGameEnd, setResultWords}:
   const handleAnswer = (wordId: string) => {
     if ( answer?.id === wordId) {
       resultWords(true);
+
     }
     else {
       resultWords(false);
@@ -76,7 +78,6 @@ export const GamePage = ({difficulty, setGameEnd, setResultWords}:
   const handleWrongAnswer = () => {
   
     resultWords(false);
-  
     setIsAnswered(true);
     setAnsweredCount(answeredCount + 1);
   }
