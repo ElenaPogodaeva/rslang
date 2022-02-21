@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { setUser } from "../../store/slices/userSlice";
 import { Api } from "../../api/api";
 import style from '../../components/Form/LoginForm.scss';
-import { Alert } from "@mui/material";
+import { Alert, Card } from "@mui/material";
 import { ErrorObject } from "webpack/node_modules/schema-utils/declarations/validate";
 import { UserLogin } from "types";
 
@@ -39,7 +39,12 @@ const LoginPage = () => {
   }, []);
 
   return (
-    <div>
+    <div className={style.MainContainer}>
+      <Card raised={true} sx={{
+          mt: 5,
+          width: '400px',
+          borderRadius: '20px',
+        }}>
       {errorMessage && <Alert severity="error">Не правильный логин или пароль</Alert>}
       <LoginForm
         title="Log in"
@@ -47,8 +52,9 @@ const LoginPage = () => {
         isFetching={isFetching}
       />
       <div className={style.linkContainer}>
-        <Link to="/registration">Registration</Link>
+        <Link to="/registration">Ещё не зарегистрированы? Регистрация</Link>
       </div>
+      </Card>
     </div>
   )
 }
