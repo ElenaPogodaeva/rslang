@@ -74,10 +74,6 @@
   background-color: #dff6c8c2;
 }
 
-.startActive {
-  background-color: #a6e766c2;
-}
-
 .icon {
   width: 30px;
   height: 30px;
@@ -193,10 +189,21 @@
 }
 
 .score {
+  position: relative;
   font-size: 26px;
   margin-bottom: 30px;
 }
 
 .active {
   background-color: #8d4bcabd;
+}
+
+.startActive {
+  background-color: #a6e766c2;
+}
+
+.scoreItem {
+  position: absolute;
+  right: -60px;
+  color: #f9ed20;
 }

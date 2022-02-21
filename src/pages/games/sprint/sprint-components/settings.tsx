@@ -6,20 +6,20 @@ import { DifficultyBtn } from "./difficultyBtn";
 import { api } from "../../../../index";
 import { StoreInterface } from "@store/*";
 
+export function getRandom(min: number, max: number) {
+  return Math.floor(Math.random() * (max - min) + min);
+}
+
 const SettingsSprint = () => {
   const dispatch = useDispatch();
-  
-  const {difficulty} = useSelector((state: StoreInterface) => state.sprint);
 
-  function getRandom(min: number, max: number) {
-    return Math.floor(Math.random() * (max - min) + min);
-  }
+  const {difficulty} = useSelector((state: StoreInterface) => state.sprint);
 
   const difficultyHandle = async (id: number) =>{
     const page = getRandom(0, 30);
 
-    dispatch(setDifficulty({difficulty: id}));
     const response = await api.getWords(page - 1, id);
+    dispatch(setDifficulty({difficulty: id}));
     dispatch(setWordsGame({words: response}));
   }
 
@@ -43,7 +43,7 @@ const SettingsSprint = () => {
                   [0, 1, 2, 3, 4, 5].map(id => <DifficultyBtn key={id} id={id} difficultyHandle={difficultyHandle}/>)
                 }
               </div>
-              <button disabled={difficulty ? false : true} onClick={startGame} className={`${style.startBtn} ${difficulty ? style.startActive : ''}`}>Старт</button>
+              <button disabled={difficulty || difficulty === 0 ? false : true} onClick={startGame} className={`${style.startBtn} ${difficulty || difficulty === 0 ? style.startActive : ''}`}>Старт</button>
             </div>
             <div className={style.sbttlWrap}>
               <span className={style.sprintSubttl}>Чтобы выбрать, используйте:</span>
