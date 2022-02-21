@@ -22,7 +22,6 @@ export const EndPage = ({correctWords, wrongWords, setGameStart}:
   const playAudio = (event: any) => {
     const wordAudio = new Audio();
     wordAudio.src = `${url}/${event.target.value}`;
-    console.log(wordAudio.src)
     wordAudio.play();
   }
 

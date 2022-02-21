@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import style from './Header.scss';
 
 const SideBar = ({isOpen, close}:{isOpen: boolean, close: ()=>void}) => {
-  console.log(isOpen)
   return (
       <div className={`${style.sideBar} ${isOpen ? style.sideBar_active : null}`}> 
         <div className={style.menuWrapper}>
