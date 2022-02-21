@@ -15,12 +15,12 @@ export const StartPage = ({setStartGameDifficulty, startGame}:
       setStartGameDifficulty(+event.target.value);
     }
     
-    useEffect(() => {
-      console.log('mount');
-      return () => {
-        console.log('anmount');
-      }
-    }, [setStartGameDifficulty]);
+    // useEffect(() => {
+    //   console.log('mount');
+    //   return () => {
+    //     console.log('anmount');
+    //   }
+    // }, [setStartGameDifficulty]);
     return (
       <div className={style.gameWrapper}>
       <div className={style.audiocall}>

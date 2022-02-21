@@ -42,17 +42,16 @@ export const GamePage = ({difficulty, setGameEnd, setResultWords}:
     const fetchedWords = await api.getWords(round, difficulty);
     shuffle(fetchedWords);
     const randomWords = fetchedWords.slice(0, 5);
-    //fetchedWords.length = 5;
-    console.log(randomWords)
     
     setWords(randomWords);
     setIsLoading(false);
     const i = getRandom(0, randomWords.length - 1);
     setAnswer(randomWords[i]);
     
-    playAudio();
-    
-    
+    if (answer) {
+      playAudio();
+    }
+
     setIsAnswered(false);
     
   }, [difficulty, round]);
@@ -80,7 +79,6 @@ export const GamePage = ({difficulty, setGameEnd, setResultWords}:
     const wordAudio = new Audio();
     wordAudio.src = `${url}/${answer?.audio}`;
     wordAudio.play();
-    console.log('answer', answer);
   }
 
   const nextRound = () => {
@@ -92,8 +90,6 @@ export const GamePage = ({difficulty, setGameEnd, setResultWords}:
     else {
       setGameEnd();
       setResultWords(correctAnswers, wrongAnswers);
-       console.log(correctAnswers)
-       console.log(wrongAnswers)
     }
   }
 
@@ -107,18 +103,9 @@ export const GamePage = ({difficulty, setGameEnd, setResultWords}:
   }
 
 
-
   return (
     <div className={style.gameWrapper}>
     <div className={style.audiocall}>
-      {/* <div className={style.gameHeader}>
-      {console.log(words)}
-          <ul className={style.gameBar}>
-            <li></li>
-            <li></li>
-            <li></li>
-          </ul>
-      </div> */}
       {isLoading ? 
       <Spinner /> :
       <div className={style.gamePage}>
@@ -127,10 +114,7 @@ export const GamePage = ({difficulty, setGameEnd, setResultWords}:
             <img src={`${url}/${answer?.image}`}></img>
           </div>
           <div className={style.audioWrapper}>
-            {/* <div className={`${style.audioElement} ${isAnswered ? style.audioSmall : style.audioLarge}`}
-              onClick={playAudio}>
 
-            </div> */}
             <button className={`${style.audioElement} ${isAnswered ? style.audioSmall : style.audioLarge}`}
               onClick={playAudio}>
               <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">

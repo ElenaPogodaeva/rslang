@@ -24,7 +24,6 @@ export const Questions = ({words, answer, handleAnswer, isAnswered, nextRound}:
     const wordAudio = new Audio();
     wordAudio.src = `${url}/${answer?.audio}`;
     wordAudio.play();
-    console.log(answer);
   }
 
   useEffect(() => {
@@ -35,15 +34,6 @@ export const Questions = ({words, answer, handleAnswer, isAnswered, nextRound}:
 
   return(
     <>
-      {/* <div className={style.gameHeader}>
-      {console.log(words)}
-        {}
-          <ul className={style.gameBar}>
-            <li></li>
-            <li></li>
-            <li></li>
-          </ul>
-      </div> */}
       <div className={style.words}>
         {words && words.map((word, index) => (
           <button className={`${style.word} 
@@ -60,17 +50,7 @@ export const Questions = ({words, answer, handleAnswer, isAnswered, nextRound}:
         
         ))}
       </div>
-      {console.log(selected, answer?.id)}
-       {/* <div className={style.words}>
-          <button className={`${style.word} ${words[0].id !== answerId && isSelect ? style.wrongWord : ''}`}
-          key={words[0].id} value={words[0].id} onClick={checkAnswer}>1</button>
-           <button className={`${style.word} ${words[1].id !== answerId && isSelect ? style.wrongWord : ''}`}
-          key={words[1].id} value={words[1].id} onClick={checkAnswer}>1</button> 
-          <div className={style.word}>2</div>
-          <div className={style.word}>3</div>
-          <div className={style.word}>4</div>
-          <div className={style.word}>5</div>
-      </div>  */}
+
       {isAnswered ? 
         <button className={style.button} onClick={nextRound}>
           Дальше
@@ -79,16 +59,7 @@ export const Questions = ({words, answer, handleAnswer, isAnswered, nextRound}:
           Не знаю
         </button>
       }
-       {/* <button className={style.button} value='' onClick={() => {
-        if (isAnswered) {
-          nextRound();
-        }
-        else {
-          
-        }
-      }}>
-        {isAnswered ? 'Дальше' : 'Не знаю'}
-      </button> */}
+
     </>
   )
 }
