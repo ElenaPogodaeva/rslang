@@ -15,13 +15,11 @@ export const Questions = ({words, answer, handleAnswer, handleWrongAnswer, isAns
 
   const checkAnswer = (event: any) => {
    if (!isAnswered) {
-
       handleAnswer(event.target.value);
       setSelected(event.target.value);
       setTimeout(() => nextRound(), 1000);
     }
    }
-
 
   useEffect(() => {
     let timerNext: ReturnType<typeof setTimeout>;
@@ -38,6 +36,57 @@ export const Questions = ({words, answer, handleAnswer, handleWrongAnswer, isAns
       clearTimeout(timerNext);
     }
   }, [answer]);
+
+  useEffect(() => {
+
+    document.addEventListener('keypress', onKeypress);
+  
+    return () => {
+      document.removeEventListener('keypress', onKeypress);
+    };
+  }, [answer,  handleAnswer]);
+
+  const onKeypress = (e: any) => {
+    switch (e.code) {
+      case 'Digit1':
+        if (!isAnswered) {
+          handleAnswer(words[0].id);
+          setSelected(words[0].id);
+          setTimeout(() => nextRound(), 1000);
+        }
+        break;
+      case 'Digit2':
+        if (!isAnswered) {
+          handleAnswer(words[1].id);
+          setSelected(words[1].id);
+          setTimeout(() => nextRound(), 1000);
+        }
+        break;
+      case 'Digit3':
+        if (!isAnswered) {
+          handleAnswer(words[2].id);
+          setSelected(words[2].id);
+          setTimeout(() => nextRound(), 1000);
+        }
+        break;
+      case 'Digit4':
+        if (!isAnswered) {
+          handleAnswer(words[3].id);
+          setSelected(words[3].id);
+          setTimeout(() => nextRound(), 1000);
+        }
+        break;
+      case 'Digit5':
+        if (!isAnswered) {
+          handleAnswer(words[4].id);
+          setSelected(words[4].id);
+          setTimeout(() => nextRound(), 1000);
+        }
+        break;
+      default:
+        break;
+    }
+  };
 
   return(
     <>
