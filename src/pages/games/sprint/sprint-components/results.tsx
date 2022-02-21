@@ -4,12 +4,30 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ResultWords } from "./resultWords";
 import style from './sprint.scss';
+import { WordCard } from "./game";
+import { useNavigate } from "react-router-dom";
+import { setEnd, setStart } from "../../../../store/slices/sprintSlice";
 
 const ResultsSprint = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const {
     trueAnswerWords,
     falseAnswerWords,
   } = useSelector((state: StoreInterface) => state.sprint);
+
+  const redirGames = () => {
+    navigate('/games')
+    dispatch(setStart({start: false}));
+    dispatch(setEnd({end: false}));
+  }
+
+  const redirNewGames = () => {
+    dispatch(setStart({start: false}));
+    dispatch(setEnd({end: false}));
+  }
+
   return (
     <>
       <Card raised={true} sx={{
@@ -26,61 +44,28 @@ const ResultsSprint = () => {
         <div className={style.wordsContainer}>
           <h3 className={style.studiedTitle}>
             <span>Выучено: </span>
-            <span>10</span>
+            <span>{trueAnswerWords.length}</span>
           </h3>
           
           {
-            trueAnswerWords.map(word => <ResultWords {...word} key={word.id}/>)
+            trueAnswerWords.map((word: WordCard) => <ResultWords {...word} key={word.id}/>)
           }
         </div>
         <div className={style.wordsContainer}>
           <h3 className={style.wrongTitle}>
             <span>Ошибки: </span>
-            <span>10</span>
+            <span>{falseAnswerWords.length}</span>
           </h3>
           
-          <p className={style.wordTitle}>
-            <span>word</span>
-            <span> - </span>
-            <span>перевод</span>
-          </p>
-          <p className={style.wordTitle}>
-            <span>word</span>
-            <span> - </span>
-            <span>перевод</span>
-          </p>
-          <p className={style.wordTitle}>
-            <span>word</span>
-            <span> - </span>
-            <span>перевод</span>
-          </p>
-          <p className={style.wordTitle}>
-            <span>word</span>
-            <span> - </span>
-            <span>перевод</span>
-          </p>
-          <p className={style.wordTitle}>
-            <span>word</span>
-            <span> - </span>
-            <span>перевод</span>
-          </p>
-          <p className={style.wordTitle}>
-            <span>word</span>
-            <span> - </span>
-            <span>перевод</span>
-          </p>
-          <p className={style.wordTitle}>
-            <span>word</span>
-            <span> - </span>
-            <span>перевод</span>
-          </p>
-          <p className={style.wordTitle}>
-            <span>word</span>
-            <span> - </span>
-            <span>перевод</span>
-          </p>
+          {
+            falseAnswerWords.map((word: WordCard) => <ResultWords {...word} key={word.id}/>)
+          }
         </div>
       </Card>
+      <div className={style.btnsResultContainer}>
+        <button onClick={redirNewGames} className={style.resultBtn}>Сыграть ещё раз</button>
+        <button onClick={redirGames} className={style.resultBtn}>Перейти к списку игр</button>
+      </div>
     </>
   )
 }

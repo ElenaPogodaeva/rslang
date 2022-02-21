@@ -30,6 +30,7 @@ export interface WordCard {
 
 const GameSprint = () => {
   const dispatch = useDispatch();
+
   const [time, setTime] = React.useState(60);
   const {
     words,
@@ -93,6 +94,7 @@ const GameSprint = () => {
 
   const trueAnswer = () => {
     const answer = translate === answerTranslate;
+
     onAnswerClick(answer);
   }
 
@@ -105,7 +107,7 @@ const GameSprint = () => {
   const answerKeyPress = (e: any) => {
     if(e.code === 'ArrowLeft') {
       const answer = translate === answerTranslate;
-    
+
       onAnswerClick(answer);
     }
 
@@ -140,7 +142,7 @@ const GameSprint = () => {
       <h2 className={style.score}>
         <span>Очки: </span>
         <span>{score}</span>
-        <span className={style.scoreItem}>+10</span>
+        <span className={style.scoreItem}>+{10 * coef.current}</span>
       </h2>
       <div className={style.timeWrap}>
         <span>{time}</span>
