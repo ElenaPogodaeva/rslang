@@ -14,48 +14,40 @@ export const Questions = ({words, answer, handleAnswer, handleWrongAnswer, isAns
   const [selected, setSelected] = useState('');
 
   const checkAnswer = (event: any) => {
-   // if (!isAnswered) {
-      //
+   if (!isAnswered) {
 
       handleAnswer(event.target.value);
       setSelected(event.target.value);
       setTimeout(() => nextRound(), 1000);
-   // }
-
-  }
+    }
+   }
 
 
   useEffect(() => {
-    //let timer: any;
+    let timerNext: ReturnType<typeof setTimeout>;
      const timer = setInterval(() => {
        if (answer) {
         handleWrongAnswer();
-        setTimeout(() => nextRound(), 1000);
+        timerNext = setTimeout(() => nextRound(), 1000);
        }
       
      }, 4000);
-    // if (answer) {
-    //   //playAudio();
-    //   timer = setTimeout(() => {
-    //     nextRound();
-    //   }, 5000);
-    // }
+    
     return () => {
       clearInterval(timer);
+      clearTimeout(timerNext);
     }
   }, [answer]);
 
   return(
     <>
-
       <div className={style.words}>
         {words && words.map((word, index) => (
           <button className={`${style.word} 
             ${(word.id !== answer?.id) && isAnswered ? style.wrongAnswers : ''}
             ${(word.id === answer?.id) && isAnswered ? style.correctAnswer : ''}
             ${(word.id === selected) && (word.id !== answer?.id) && isAnswered ? style.wrongAnswer : ''}
-            `} 
-
+            `}
             key={word.id} value={word.id} onClick={checkAnswer}>
               <span className={style.wordIndex}>{index + 1}</span>
               {word.wordTranslate}
@@ -64,7 +56,6 @@ export const Questions = ({words, answer, handleAnswer, handleWrongAnswer, isAns
         
         ))}
       </div>
-       
     </>
   )
 }
