@@ -1,5 +1,4 @@
-import { Pagination, Tab, Tabs, PaginationItem, CircularProgress } from "@mui/material";
-import { Api } from "../../api/api";
+import { Pagination, Tab, Tabs, CircularProgress } from "@mui/material";
 import React, { useMemo, useState } from "react";
 import { useNavigate, useParams } from 'react-router-dom';
 import { WordCard } from "../../components/Word-card/word-card";
@@ -7,9 +6,9 @@ import style from './textbook.scss';
 import { useAuth } from "../../hooks/use-auth";
 import { useDispatch, useSelector } from "react-redux";
 import { setTextbook } from "../../store/slices/textbookSlice";
-import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
-
-const api = new Api();
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { StoreInterface } from "@store/*";
+import { api } from "../../index";
 
 const TABS = [
   {
@@ -82,8 +81,8 @@ const TextbookPage = () => {
   const [value, setValue] = useState(Number(tab));
   const [total, setTotal] = useState(0);
 
-  const user = useSelector((state: any) => state.user);
-  const {words} = useSelector((state: any) => state.textbook);
+  const user = useSelector((state: StoreInterface) => state.user);
+  const {words} = useSelector((state: StoreInterface) => state.textbook);
 
   const theme = createTheme({
     palette: {
@@ -104,13 +103,21 @@ const TextbookPage = () => {
   const auth = useAuth();
 
   const fetchWords = React.useCallback(async () => {
-    setFetching(true)
-    const response = await api.getWords(Number(page) - 1, value);
-    dispatch(setTextbook({words: response}));
-    setFetching(false);
+    try {
+      setFetching(true)
+      const response = await api.getWords(Number(page) - 1, value);
+      dispatch(setTextbook({words: response}));
+    } catch (e) {
+      navigate('login');
+      throw e;
+    } finally {
+      setFetching(false);
+    }
+
   }, [value, page]);
 
   const fetchUserWords = React.useCallback(async () => {
+    try {
     setFetching(true)
 
     let response = [];
@@ -140,7 +147,12 @@ const TextbookPage = () => {
     
     dispatch(setTextbook({words: response}));
     setTotal(total);
+  } catch (e) {
+    navigate('login');
+    throw e;
+  } finally {
     setFetching(false);
+  }
   }, [value, page]);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {

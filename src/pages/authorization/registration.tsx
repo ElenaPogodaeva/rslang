@@ -1,4 +1,3 @@
-import { Api } from "../../api/api";
 import React from "react";
 import { Link } from "react-router-dom";
 import { RegForm } from "../../components/Form/regForm";
@@ -8,10 +7,9 @@ import { useAppDispatch } from "../../hooks/redux-hooks";
 import { useNavigate } from "react-router-dom";
 import style from '../../components/Form/LoginForm.scss';
 import { User } from "types";
+import { api } from "../../index";
 
 const RegistrationPage = () => {
-  const api = new Api();
-
   const [isFetching, setFetching] = React.useState(false);
   const [errorMessage, setErrorMessage] = React.useState('');
 
