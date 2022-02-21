@@ -12,6 +12,7 @@ import { Main } from "./components/Main/Main";
 import TeamPage from "./pages/team/team";
 
 import './style.scss';
+import { Savanna } from "./pages/savanna/Savanna";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
           <Route path="games" element={<GamesPage />} />
           <Route path="statistics" element={<StatisticsPage />} />
           <Route path="team" element={<TeamPage />} />
+          <Route path="games/savanna" element={<Savanna />} />
         </Routes>
       </Main>
       {/* <Routes>
