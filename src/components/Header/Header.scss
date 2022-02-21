@@ -132,3 +132,28 @@
   background-image: url(../../assets/svg/arrow_back.svg);
   cursor: pointer;
 }
+
+.headerUser {
+  display: flex;
+  align-items: center;
+}
+.headerInfo {
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+}
+.headerEmail {
+  font-size: 14px;
+  line-height: 16px;
+}
+.headerLogout {
+  margin-left: 10px;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  cursor: pointer;
+  svg {
+    fill: rgba(0, 0, 0, 0.54);
+    display: inline-block;
+  }
+}

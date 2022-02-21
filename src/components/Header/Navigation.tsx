@@ -1,9 +1,15 @@
+
 import React, {useState} from "react";
 import { Link } from "react-router-dom";
+import { useAppDispatch } from "../../hooks/redux-hooks";
+import { useSelector} from 'react-redux';
+import { useAuth } from '../../hooks/use-auth';
+import { removeUser } from "../../store/slices/userSlice";
+import { useNavigate } from "react-router-dom";
 import style from './Header.scss';
 
 const SideBar = ({isOpen, close}:{isOpen: boolean, close: ()=>void}) => {
-  //console.log(isOpen)
+
   return (
       <div className={`${style.sideBar} ${isOpen ? style.sideBar_active : null}`}> 
         <div className={style.menuWrapper}>
@@ -42,6 +48,18 @@ export const Navigation = () => {
   const closeSideBar = () => {
     setOpen(false);
   }
+
+  const dispatch = useAppDispatch();
+  const user = useSelector((state: {user: {id: string, token: string, email: string, name: string}}) => state);
+ 
+  const auth = useAuth();
+  const navigate = useNavigate();
+
+  const logOut = () => {
+   dispatch(removeUser());
+   navigate('/');
+  } 
+
   return(
     <>
     <header className={style.header}>
@@ -50,7 +68,18 @@ export const Navigation = () => {
          <Link className={style.headerLogo} to="/">
           <span className={style.headerLogo}>RSLang</span>
         </Link>
-        <span></span>
+        <div className={style.headerUser}>
+          <div className={style.headerInfo}>
+            <div className={style.headerName}>{user.user.name}</div>
+            <div className={style.headerEmail}>{user.user.email}</div>
+          </div>
+          {auth.isAuth && <button className={style.headerLogout} onClick={logOut}>
+            <svg className={style.logoutBtn} viewBox="0 0 24 24" >
+              <path d="M10.09 15.59L11.5 17l5-5-5-5-1.41 1.41L12.67 11H3v2h9.67l-2.58 2.59zM19 3H5c-1.11 0-2 .9-2 2v4h2V5h14v14H5v-4H3v4c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z">
+              </path>
+            </svg>
+          </button>}
+        </div>
       </div>
     </header>
     <SideBar isOpen={open} close={closeSideBar}/>

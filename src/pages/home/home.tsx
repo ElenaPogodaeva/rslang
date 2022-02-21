@@ -52,7 +52,7 @@ const HomePage = () => {
                 <div className={`${style.cardImg} ${style.cardImg1}`}></div>
                 <span className={style.cardTitle}>Учебник</span>
                 <p className={style.cardText}>
-                  Более 3500 тысяч слов для изучения, разбитых на разделы по уровню подготовки с удобной навигацией.
+                  Более 3500 тысяч слов для изучения, разбитых на разделы по уровню Вашей подготовки с удобной навигацией
                 </p>
               </div>
               <div className={style.card}>
@@ -80,12 +80,14 @@ const HomePage = () => {
           </div>
         </section>
       </main>
-      
-      <h2>Home</h2>
+      {/* <h2>Home</h2>
       <span>{user.user.name}</span>
       <br></br>
       <span>{user.user.email}</span>
+      {auth.isAuth && <button onClick={logOut}>Log out</button>} */}
+      
       {auth.isAuth && <button onClick={logOut}>Log out</button>}
+
     </>
   )
 }
