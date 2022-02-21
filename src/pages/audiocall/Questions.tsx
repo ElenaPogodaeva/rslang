@@ -19,7 +19,6 @@ export const Questions = ({words, answer, handleAnswer, isAnswered, nextRound}:
     }
   }
 
-
   const playAudio = () => {
     const wordAudio = new Audio();
     wordAudio.src = `${url}/${answer?.audio}`;
@@ -31,6 +30,61 @@ export const Questions = ({words, answer, handleAnswer, isAnswered, nextRound}:
       playAudio();
     }
   }, [answer]);
+
+  useEffect(() => {
+
+    document.addEventListener('keypress', onKeypress);
+  
+    return () => {
+      document.removeEventListener('keypress', onKeypress);
+    };
+  }, [answer,  handleAnswer]);
+
+  const onKeypress = (e: any) => {
+    switch (e.code) {
+      case 'Digit1':
+        if (!isAnswered) {
+          handleAnswer(words[0].id);
+          setSelected(words[0].id);
+        }
+        break;
+      case 'Digit2':
+        if (!isAnswered) {
+          handleAnswer(words[1].id);
+          setSelected(words[1].id);
+        }
+        break;
+      case 'Digit3':
+        if (!isAnswered) {
+          handleAnswer(words[2].id);
+          setSelected(words[2].id);
+        }
+        break;
+      case 'Digit4':
+        if (!isAnswered) {
+          handleAnswer(words[3].id);
+          setSelected(words[3].id);
+        }
+        break;
+      case 'Digit5':
+        if (!isAnswered) {
+          handleAnswer(words[4].id);
+          setSelected(words[4].id);
+        }
+        break;
+      case 'Enter':
+        if (!isAnswered) {
+          handleAnswer('');
+          setSelected('');
+        }
+        else {
+          nextRound();
+        }
+        break;
+      default:
+        break;
+    }
+  };
 
   return(
     <>
