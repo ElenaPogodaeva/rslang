@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { WordCard } from "pages/games/sprint/sprint-components/game";
 
-const initialState = {
+const initialState: ISprintState = {
   words: [],
   start: false,
   end: false,
@@ -14,21 +14,23 @@ const initialState = {
   score: 0,
   countTrueAnswer: 0,
   difficulty: null,
+  id: '',
 };
 
 export interface ISprintState {
-  words: [];
+  words: WordCard[];
   start: boolean;
   end: boolean;
   word: string;
   answer: boolean;
-  trueAnswerWords: [];
-  falseAnswerWords: [];
+  trueAnswerWords: WordCard[];
+  falseAnswerWords: WordCard[];
   translate: string;
   answerTranslate: string;
   score: number;
   countTrueAnswer: number;
   difficulty: number | null;
+  id: string
 }
 
 const sprintSlice = createSlice({
@@ -54,6 +56,7 @@ const sprintSlice = createSlice({
       state.word = action.payload.word;
       state.translate = action.payload.translate;
       state.answerTranslate = action.payload.answerTranslate;
+      state.id = action.payload.id;
     },
     setAnswer(state, action) {
       state.answer = action.payload.answer;
@@ -61,12 +64,14 @@ const sprintSlice = createSlice({
     setScore(state, action) {
       state.score = action.payload.score;
     },
-    setTrueAnswerWords(state, action) {
-      state.trueAnswerWords = action.payload.trueAnswerWords;
-    },
     setAnswerWords(state, action) {
-      state.trueAnswerWords = action.payload.trueAnswerWords;
-      state.falseAnswerWords = action.payload.falseAnswerWords;
+      if (action.payload.trueAnswerWord) {
+        state.trueAnswerWords = [...state.trueAnswerWords, action.payload.trueAnswerWord];
+      }
+      
+      if (action.payload.falseAnswerWord) {
+        state.falseAnswerWords = [...state.falseAnswerWords, action.payload.falseAnswerWord];
+      }
     },
     setCountTrueAnswer(state, action) {
       state.countTrueAnswer = action.payload.countTrueAnswer;
@@ -76,7 +81,7 @@ const sprintSlice = createSlice({
 
 export const {
   setWordsGame, setDifficulty, setStart, setCardWordGame, 
-  setAnswer, setScore, deleteWordsGame, setTrueAnswerWords, 
+  setAnswer, setScore, deleteWordsGame, 
   setAnswerWords, setCountTrueAnswer, setEnd
 } = sprintSlice.actions;
 

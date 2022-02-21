@@ -103,13 +103,21 @@ const TextbookPage = () => {
   const auth = useAuth();
 
   const fetchWords = React.useCallback(async () => {
-    setFetching(true)
-    const response = await api.getWords(Number(page) - 1, value);
-    dispatch(setTextbook({words: response}));
-    setFetching(false);
+    try {
+      setFetching(true)
+      const response = await api.getWords(Number(page) - 1, value);
+      dispatch(setTextbook({words: response}));
+    } catch (e) {
+      navigate('login');
+      throw e;
+    } finally {
+      setFetching(false);
+    }
+
   }, [value, page]);
 
   const fetchUserWords = React.useCallback(async () => {
+    try {
     setFetching(true)
 
     let response = [];
@@ -139,7 +147,12 @@ const TextbookPage = () => {
     
     dispatch(setTextbook({words: response}));
     setTotal(total);
+  } catch (e) {
+    navigate('login');
+    throw e;
+  } finally {
     setFetching(false);
+  }
   }, [value, page]);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {

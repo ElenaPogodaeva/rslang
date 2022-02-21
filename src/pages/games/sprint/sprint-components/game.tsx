@@ -1,12 +1,11 @@
 import { Card, FormControlState } from "@mui/material";
 import { StoreInterface } from "@store/*";
-import React from "react";
-import { KeyboardEvent } from "react";
+import React, {useRef} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { 
   deleteWordsGame, setAnswer, setAnswerWords, 
   setCardWordGame, setCountTrueAnswer, setEnd, 
-  setScore, setStart, setTrueAnswerWords 
+  setScore, setStart 
 } from "../../../../store/slices/sprintSlice";
 import { BuiletCircle } from "./builetCircle";
 import { getRandom } from "./settings";
@@ -29,29 +28,24 @@ export interface WordCard {
   wordTranslate: string;
 }
 
-let num = 20;
-let coef = 1;
-let cardWord: WordCard[] = [];
-let arrTrueAnswers: WordCard[] = [];
-let arrFalseAnswers: WordCard[] = [];
-
 const GameSprint = () => {
   const dispatch = useDispatch();
   const [time, setTime] = React.useState(60);
-
   const {
     words,
     answerTranslate,
     translate,
     score,
     countTrueAnswer,
-    word
+    word,
+    id
   } = useSelector((state: StoreInterface) => state.sprint);
 
+  let coef = useRef(1);
+
   const generateCard = () => {
-    num -= 1;
-    const mainNum = getRandom(0, num);
-    const secondNum = getRandom(0, num);
+    const mainNum = getRandom(0, words.length - 1);
+    const secondNum = getRandom(0, words.length - 1);
     const cardsNum = getRandom(0, 2);
 
     const mainCard: WordCard = words[mainNum] || {};
@@ -62,50 +56,43 @@ const GameSprint = () => {
     const answerTranslate = mainCard.wordTranslate;
     const translate = cards[cardsNum].wordTranslate;
 
-    dispatch(setCardWordGame({word: word, answerTranslate: answerTranslate, translate: translate}));
-    
-    cardWord = words.filter((card: WordCard) => card.word === word);
-
-    dispatch(deleteWordsGame({id: mainCard.id}));
+    dispatch(setCardWordGame({word: word, answerTranslate: answerTranslate, translate: translate, id: mainCard.id}));
   }
 
 
   const onAnswerClick = (answer: boolean) => {
+    const cardWord = words.find((card: WordCard) => card.id === id);
+
     if(answer) {
-      arrTrueAnswers.push(...cardWord);
+      dispatch(setAnswerWords({trueAnswerWord: cardWord}));
     } else {
-      arrFalseAnswers.push(...cardWord)
+      dispatch(setAnswerWords({falseAnswerWord: cardWord}));
     }
 
-    //dispatch(setAnswerWords({trueAnswerWords: arrTrueAnswers, falseAnswerWords: arrFalseAnswers}));
-
-    generateCard();
+    words.length && generateCard();
 
     let countTrueAnswerLocal = countTrueAnswer;
     let scoreLocal = score;
 
     if(answer) {
-      countTrueAnswerLocal === 3 ? coef += 1 : coef += 0;
+      countTrueAnswerLocal === 3 ? coef.current += 1 : coef.current += 0;
 
       countTrueAnswerLocal < 3 ? countTrueAnswerLocal += 1 : countTrueAnswerLocal = 0;
 
-      scoreLocal += 10 * coef;
+      scoreLocal += 10 * coef.current;
     } else {
       countTrueAnswerLocal = 0;
-      coef = 1;
+      coef.current = 1;
     }
 
     dispatch(setCountTrueAnswer({countTrueAnswer: countTrueAnswerLocal}));
     dispatch(setAnswer({answer: answer}));
     dispatch(setScore({score: scoreLocal}));
+    dispatch(deleteWordsGame({id}));
   }
 
   const trueAnswer = () => {
     const answer = translate === answerTranslate;
-
-    arrTrueAnswers
-    arrFalseAnswers
-
     onAnswerClick(answer);
   }
 
@@ -129,15 +116,14 @@ const GameSprint = () => {
     }
   }
 
-
   React.useEffect(() => {
     generateCard();
     window.addEventListener('keydown', answerKeyPress);
-    //const timer = setInterval(() => setTime(time => time - 1), 1000);
-
+    const timer = setInterval(() => setTime(time => time - 1), 1000);
+    
     return () => {
       window.removeEventListener('keydown', answerKeyPress);
-      //clearInterval(timer);
+      clearInterval(timer);
     }
   }, []);
 
