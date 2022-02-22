@@ -1,7 +1,7 @@
 
 import React, {useState, useEffect} from "react";
 import { Link } from "react-router-dom";
-import style from './StartPage.scss';
+import style from '../audiocall/StartPage.scss';
 //import Select from 'react-select';
 
 type GameStartProps = {

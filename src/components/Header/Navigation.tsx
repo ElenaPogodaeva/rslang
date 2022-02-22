@@ -66,7 +66,7 @@ export const Navigation = () => {
     <header className={style.header}>
       <div className={style.headerContainer}>
         <button className={style.headerMenu} onClick={openSideBar}></button>
-         <Link className={style.headerLogo} to="/">
+         <Link className={style.headerLogo} to="/rs-lang">
           <span className={style.headerLogo}>RSLang</span>
         </Link>
         <div className={style.headerUser}>
