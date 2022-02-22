@@ -61,6 +61,22 @@ export const GamePage = ({difficulty, setGameEnd, setResultWords}:
   
   }, [fetchWords]);
 
+  useEffect(() => {
+
+    document.addEventListener('keypress', onKeypress);
+  
+    return () => {
+      document.removeEventListener('keypress', onKeypress);
+    };
+  }, [answer]);
+
+  const onKeypress = (e: any) => {
+    if (e.code === 'Space') {
+      e.preventDefault();
+      playAudio();
+    }
+  };
+  
   const handleAnswer = (wordId: string) => {
     if ( answer?.id === wordId) {
       resultWords(true);
@@ -68,7 +84,6 @@ export const GamePage = ({difficulty, setGameEnd, setResultWords}:
     }
     else {
       resultWords(false);
-     
     }
   
     setIsAnswered(true);
@@ -84,8 +99,8 @@ export const GamePage = ({difficulty, setGameEnd, setResultWords}:
   const nextRound = () => {
     setAnswer(null);
     if (answeredCount < 10) {
-      const page = getRandom(0, 29);
-      setRound(page);
+      //const page = getRandom(0, 29);
+      setRound(round+1);
     }
     else {
       setGameEnd();
@@ -101,7 +116,6 @@ export const GamePage = ({difficulty, setGameEnd, setResultWords}:
       setWrongAnswers([...wrongAnswers, answer]);
     }
   }
-
 
   return (
     <div className={style.gameWrapper}>
@@ -132,7 +146,7 @@ export const GamePage = ({difficulty, setGameEnd, setResultWords}:
       </div>
       }
     
-    </div>
+      </div>
     </div>
     
   )

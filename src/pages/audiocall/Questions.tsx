@@ -19,6 +19,12 @@ export const Questions = ({words, answer, handleAnswer, isAnswered, nextRound}:
     }
   }
 
+  const handleKeyPress = (id: string) => {
+    if (!isAnswered) {
+       handleAnswer(id);
+       setSelected(id);
+     }
+  }
 
   const playAudio = () => {
     const wordAudio = new Audio();
@@ -31,6 +37,45 @@ export const Questions = ({words, answer, handleAnswer, isAnswered, nextRound}:
       playAudio();
     }
   }, [answer]);
+
+  useEffect(() => {
+
+    document.addEventListener('keypress', onKeypress);
+  
+    return () => {
+      document.removeEventListener('keypress', onKeypress);
+    };
+  }, [answer,  handleKeyPress]);
+
+  const onKeypress = (e: any) => {
+    switch (e.code) {
+      case 'Digit1':
+        handleKeyPress(words[0].id);
+        break;
+      case 'Digit2':
+        handleKeyPress(words[1].id);
+        break;
+      case 'Digit3':
+        handleKeyPress(words[2].id);
+        break;
+      case 'Digit4':
+        handleKeyPress(words[3].id);
+        break;
+      case 'Digit5':
+        handleKeyPress(words[4].id);
+        break;
+      case 'Enter':
+        if (!isAnswered) {
+          handleKeyPress('');
+        }
+        else {
+          nextRound();
+        }
+        break;
+      default:
+        break;
+    }
+  };
 
   return(
     <>
