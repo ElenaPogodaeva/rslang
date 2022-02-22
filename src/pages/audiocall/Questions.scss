@@ -1,10 +1,10 @@
-.words {
+.audioWords {
   display: flex;
   flex-wrap: wrap;
   margin-bottom: 30px;
   justify-content: center;
 }
-.word {
+.audioWord {
   cursor: pointer;
   margin: 10px;
   padding: 10px;
@@ -13,7 +13,7 @@
   color: #fff;
   transition: background-color 0.3s ease;
 }
-.word:hover {
+.audioWord:hover {
   background-color: rgba(255,255,255,.2);
 }
 .wordIndex {
