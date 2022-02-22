@@ -8,6 +8,10 @@ const GamesPage = () => {
       <Link to="/games/savanna">
         <h3>Savanna</h3>
       </Link>
+      <Link to="/games/audiocall">
+        <h3>AudioCall</h3>
+      </Link>
+      <Link to="sprint">Спринт</Link>
     </>
   )
 }

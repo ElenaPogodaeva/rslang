@@ -51,9 +51,15 @@
   background-position: center center;
   background-repeat: no-repeat;
   background-color: transparent;
-  background-size: contain;
+  background-size: cover;
   margin-bottom: 15px;
-  background-image: url(../../assets/svg/avatar.svg);
+  border-radius: 50%;
+}
+.teamImg1 {
+  background-image: url(../../assets/avatar1.jpg);
+}
+.teamImg2 {
+  background-image: url(../../assets/avatar2.jpg);
 }
 .teamTitle {
   font-size: 1.3rem;

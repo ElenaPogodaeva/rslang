@@ -12,18 +12,27 @@ const TeamPage = () => {
                 <span className={style.teamTitle}>Алексей Абрамов</span>
                 <a className={style.github} href="https://github.com/Al-Abramov" target="_blank">Al-Abramov</a>
                 <p className={style.teamSubtitle}>Team Lead, Разработчик</p>
-                <p className={style.teamText}>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus veniam quisquam molestias velit voluptatum sapiente. At vitae, magni dolorum nobis laboriosam
-                </p>
+               
+                  <ol className={style.teamText}>
+                    <li>Авторизация</li>
+                    <li>Электронный учебник</li>
+                    <li>Cписок слов</li>
+                    <li>Игра "Спринт"</li>
+                  </ol>
+                
               </div>
               <div className={style.teamCard}>
                 <div className={`${style.teamImg} ${style.teamImg2}`}></div>
                 <span className={style.teamTitle}>Елена Погодаева</span>
                 <a className={style.github} href="https://github.com/ElenaPogodaeva" target="_blank">ElenaPogodaeva</a>
                 <p className={style.teamSubtitle}>Разработчик</p>
-                <p className={style.teamText}>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus veniam quisquam molestias velit voluptatum sapiente. At vitae, magni dolorum nobis laboriosam
-                </p>
+               
+                  <ol className={style.teamText}>
+                    <li>Главная страница</li>
+                    <li>Игра «Аудиовызов»</li>
+                    <li>Игра «Саванна»</li>
+                  </ol>
+              
               </div>
             </div>
           </div>
