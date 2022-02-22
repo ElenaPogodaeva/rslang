@@ -118,12 +118,12 @@ export const GamePage = ({difficulty, setGameEnd, setResultWords}:
   }
 
   return (
-    <div className={style.gameWrapper}>
+    <div className={style.gameAudioWrapper}>
     <div className={style.audiocall}>
       {isLoading ? 
       <Spinner /> :
-      <div className={style.gamePage}>
-        <div className={style.wrapper}>
+      <div className={style.gameAudioPage}>
+        <div className={style.contentWrapper}>
           <div className={`${style.wordImg} ${isAnswered ? '' : style.hide}`}>
             <img src={`${url}/${answer?.image}`}></img>
           </div>
@@ -136,7 +136,7 @@ export const GamePage = ({difficulty, setGameEnd, setResultWords}:
               </svg>
             </button>
             
-            <p className={`${style.correctWord} ${isAnswered ? '' : style.hide}`}>
+            <p className={`${style.correctAudioWord} ${isAnswered ? '' : style.hide}`}>
               {answer?.word}
             </p>
           </div>
