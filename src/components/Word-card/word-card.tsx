@@ -7,7 +7,7 @@ import style from './word-card.scss';
 import { useDispatch, useSelector } from "react-redux";
 import { setWordById, removeWord } from "../../store/slices/textbookSlice";
 import { useAuth } from "../../hooks/use-auth";
-import { Api } from "../../api/api";
+import { api } from "../../index";
 
 interface WordCardProps {
   imgSrc: string;
@@ -28,7 +28,7 @@ interface WordCardProps {
 }
 
 const player = new Audio();
-const api = new Api()
+//const api = new Api();
 
 function audioIterator(array: string[]){
   let nextIndex = 0;

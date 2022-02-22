@@ -4,15 +4,13 @@ import { LoginForm } from "../../components/Form/loginForm";
 import { useAppDispatch } from "../../hooks/redux-hooks";
 import { useNavigate } from "react-router-dom";
 import { setUser } from "../../store/slices/userSlice";
-import { Api } from "../../api/api";
 import style from '../../components/Form/LoginForm.scss';
 import { Alert, Card } from "@mui/material";
 import { ErrorObject } from "webpack/node_modules/schema-utils/declarations/validate";
 import { UserLogin } from "types";
+import { api } from "../../index";
 
 const LoginPage = () => {
-  const api = new Api();
-
   const [isFetching, setFetching] = React.useState(false);
   const [errorMessage, setErrorMessage] = React.useState('');
 
