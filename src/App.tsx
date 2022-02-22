@@ -14,6 +14,7 @@ import TeamPage from "./pages/team/team";
 import { AudioCall } from "./pages/audiocall/Audiocall";
 
 import './style.scss';
+import { Savanna } from "./pages/savanna/Savanna";
 
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
           <Route path="/games/sprint" element={<SprintPage />} />
           <Route path="statistics" element={<StatisticsPage />} />
           <Route path="team" element={<TeamPage />} />
+          <Route path="games/savanna" element={<Savanna />} />
           <Route path="games/audiocall" element={<AudioCall />} />
         </Routes>
       </Main>
