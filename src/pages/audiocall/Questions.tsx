@@ -79,9 +79,9 @@ export const Questions = ({words, answer, handleAnswer, isAnswered, nextRound}:
 
   return(
     <>
-      <div className={style.words}>
+      <div className={style.audioWords}>
         {words && words.map((word, index) => (
-          <button className={`${style.word} 
+          <button className={`${style.audioWord} 
             ${(word.id !== answer?.id) && isAnswered ? style.wrongAnswers : ''}
             ${(word.id === answer?.id) && isAnswered ? style.correctAnswer : ''}
             ${(word.id === selected) && (word.id !== answer?.id) && isAnswered ? style.wrongAnswer : ''}

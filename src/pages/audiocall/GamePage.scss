@@ -1,4 +1,4 @@
-.gameWrapper {
+.gameAudioWrapper {
   background-size: cover;
   background: url(../../assets/audiocall.jpg) no-repeat center;
   color: #fff;
@@ -19,7 +19,7 @@
 }
 
 
-.gamePage {
+.gameAudioPage {
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -67,7 +67,7 @@
   padding: 10px 24px;
   transition: all 0.5s ease;
 }
-.wrapper {
+.contentWrapper {
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -117,7 +117,7 @@
   height: 40px;
 }
 
-.correctWord {
+.correctAudioWord {
   font-size: 35px;
   text-align: center;
   margin-left: 15px;
