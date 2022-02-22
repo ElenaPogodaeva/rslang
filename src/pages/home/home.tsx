@@ -18,7 +18,7 @@ const HomePage = () => {
  const logOut = () => {
   dispatch(removeUser());
   localStorage.clear();
-  navigate('/');
+  navigate('/rs-lang');
  } 
  
   return (
@@ -80,14 +80,6 @@ const HomePage = () => {
           </div>
         </section>
       </main>
-      {/* <h2>Home</h2>
-      <span>{user.user.name}</span>
-      <br></br>
-      <span>{user.user.email}</span>
-      {auth.isAuth && <button onClick={logOut}>Log out</button>} */}
-      
-      {auth.isAuth && <button onClick={logOut}>Log out</button>}
-
     </>
   )
 }

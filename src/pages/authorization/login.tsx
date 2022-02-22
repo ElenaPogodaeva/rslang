@@ -27,7 +27,7 @@ const LoginPage = () => {
 
       dispatch(setUser({token: loginUser.token, email: getUser.email, id: getUser.id, name: getUser.name}));
 
-      navigate('/');
+      navigate('/rs-lang');
     } catch(error) {
       setErrorMessage((error as Error).message);
     } finally {

@@ -16,7 +16,6 @@ const RegistrationPage = () => {
   const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
-  //const userState = useSelector((state: {user: {id: string, token: string, email: string}}) => state.user);
 
   const createUser = React.useCallback(async (user: User) => {
     setFetching(true);
@@ -27,7 +26,7 @@ const RegistrationPage = () => {
 
      dispatch(setUser({token: loginUser.token, email: createUser.email, id: createUser.id, name: createUser.name}));
 
-     navigate('/');
+     navigate('/rs-lang');
 
     } catch (error) {
         setErrorMessage((error as Error).message);

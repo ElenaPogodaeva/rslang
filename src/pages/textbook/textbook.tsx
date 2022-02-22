@@ -160,6 +160,18 @@ const TextbookPage = () => {
     navigate(`/textbook/${newValue}`);
   };
 
+  const onSavanna = () => {
+    navigate('/games/savanna')
+  }
+
+  const onSprint = () => {
+    navigate('/games/sprint')
+  }
+
+  const onAudiocall = () => {
+    navigate('/games/audiocall')
+  }
+
   React.useEffect(() => {
     if (user.id) {
       fetchUserWords();
@@ -172,6 +184,11 @@ const TextbookPage = () => {
   return (
     <div className={style.MainContainer}>
       <h2 className={style.textbookTitle}>Учебник</h2>
+      <div className={style.gameBtnsContainer}>
+        <button onClick={onAudiocall} className={style.gamesBtn}>Аудиовызов</button>
+        <button onClick={onSprint} className={style.gamesBtn}>Спринт</button>
+        <button onClick={onSavanna} className={style.gamesBtn}>Саванна</button>
+      </div>
       <Tabs 
         value={value}
         onChange={handleChange} 

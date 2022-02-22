@@ -28,7 +28,6 @@ interface WordCardProps {
 }
 
 const player = new Audio();
-//const api = new Api();
 
 function audioIterator(array: string[]){
   let nextIndex = 0;

@@ -18,7 +18,7 @@ const SideBar = ({isOpen, close}:{isOpen: boolean, close: ()=>void}) => {
           </div>
         <ul className={style.menuList}>
           <li>
-            <Link to="/" className={`${style.menuLink} ${style.menuLink1}`} onClick={close}>Главная</Link>
+            <Link to="/rs-lang" className={`${style.menuLink} ${style.menuLink1}`} onClick={close}>Главная</Link>
           </li>
           <li>
             <Link to="/textbook" className={`${style.menuLink} ${style.menuLink2}`} onClick={close}>Учебник</Link>
@@ -57,7 +57,8 @@ export const Navigation = () => {
 
   const logOut = () => {
    dispatch(removeUser());
-   navigate('/');
+   localStorage.clear();
+   navigate('/rs-lang');
   } 
 
   return(

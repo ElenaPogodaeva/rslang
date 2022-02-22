@@ -28,8 +28,13 @@ export interface WordCard {
   wordTranslate: string;
 }
 
+const audio = new Audio();
+
 const GameSprint = () => {
   const dispatch = useDispatch();
+
+  const wrongAudioUrl = '../../../../assets/audio/wrong.mp3';
+  const correctAudioUrl = '../../../../assets/audio/correct.mp3';
 
   const [time, setTime] = React.useState(60);
   const {
@@ -94,12 +99,28 @@ const GameSprint = () => {
 
   const trueAnswer = () => {
     const answer = translate === answerTranslate;
-
+/*
+    if(answer) {
+      audio.src = correctAudioUrl;
+      audio.play();
+    } else {
+      audio.src = wrongAudioUrl;
+      audio.play();
+    }*/
+    
     onAnswerClick(answer);
   }
 
   const falseAnswer = () => {
     const answer = translate !== answerTranslate;
+/*
+    if(answer) {
+      audio.src = correctAudioUrl;
+      audio.play();
+    } else {
+      audio.src = wrongAudioUrl;
+      audio.play();
+    }*/
 
     onAnswerClick(answer);
   }
