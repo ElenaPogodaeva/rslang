@@ -5,7 +5,7 @@ import SprintPage from "./pages/games/sprint/sprint";
 import HomePage from "./pages/home/home";
 import StatisticsPage from "./pages/statistics/statistics";
 import TextbookPage from "./pages/textbook/textbook";
-import { Route, Routes, BrowserRouter, Link } from "react-router-dom";
+import { Route, Routes, BrowserRouter, Link, HashRouter } from "react-router-dom";
 import RegistrationPage from "./pages/authorization/registration";
 import { Main } from "./components/Main/Main";
 import TeamPage from "./pages/team/team";
@@ -17,7 +17,7 @@ import { Savanna } from "./pages/savanna/Savanna";
 
 function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Main>
         <Routes>
           <Route path="/rs-lang" element={<HomePage />} />
@@ -35,7 +35,7 @@ function App() {
           <Route path="games/audiocall" element={<AudioCall />} />
         </Routes>
       </Main>
-    </BrowserRouter>
+    </HashRouter>
   )
 }
 
