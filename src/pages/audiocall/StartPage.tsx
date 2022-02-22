@@ -22,9 +22,9 @@ export const StartPage = ({setStartGameDifficulty, startGame}:
     //   }
     // }, [setStartGameDifficulty]);
     return (
-      <div className={style.gameWrapper}>
+      <div className={style.gameStartWrapper}>
       <div className={style.audiocall}>
-        <div className={style.startPage}>
+        <div className={style.startAudioPage}>
           <div className={style.text}>
             <h3 className={style.title}>Аудиовызов</h3>
             <p className={style.desc}>Аудиовызов - это тренировка, которая улучшает восприятие речи на слух.</p>
