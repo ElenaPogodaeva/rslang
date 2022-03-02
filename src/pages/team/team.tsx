@@ -29,6 +29,7 @@ const TeamPage = () => {
                
                   <ol className={style.teamText}>
                     <li>Главная страница</li>
+                    <li>Rest API</li>
                     <li>Игра «Аудиовызов»</li>
                     <li>Игра «Саванна»</li>
                   </ol>

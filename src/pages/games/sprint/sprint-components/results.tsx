@@ -6,7 +6,7 @@ import { ResultWords } from "./resultWords";
 import style from './sprint.scss';
 import { WordCard } from "./game";
 import { useNavigate } from "react-router-dom";
-import { setEnd, setStart } from "../../../../store/slices/sprintSlice";
+import { clearAnswerWords, setEnd, setStart } from "../../../../store/slices/sprintSlice";
 
 const ResultsSprint = () => {
   const dispatch = useDispatch();
@@ -24,6 +24,7 @@ const ResultsSprint = () => {
   }
 
   const redirNewGames = () => {
+    dispatch(clearAnswerWords());
     dispatch(setStart({start: false}));
     dispatch(setEnd({end: false}));
   }

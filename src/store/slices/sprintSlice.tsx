@@ -73,6 +73,10 @@ const sprintSlice = createSlice({
         state.falseAnswerWords = [...state.falseAnswerWords, action.payload.falseAnswerWord];
       }
     },
+    clearAnswerWords(state) {
+        state.trueAnswerWords = [];
+        state.falseAnswerWords = [];
+    },
     setCountTrueAnswer(state, action) {
       state.countTrueAnswer = action.payload.countTrueAnswer;
     }
@@ -82,7 +86,7 @@ const sprintSlice = createSlice({
 export const {
   setWordsGame, setDifficulty, setStart, setCardWordGame, 
   setAnswer, setScore, deleteWordsGame, 
-  setAnswerWords, setCountTrueAnswer, setEnd
+  setAnswerWords, setCountTrueAnswer, setEnd, clearAnswerWords
 } = sprintSlice.actions;
 
 export default sprintSlice.reducer;

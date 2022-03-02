@@ -20,7 +20,7 @@ function App() {
     <HashRouter>
       <Main>
         <Routes>
-          <Route path="/rs-lang" element={<HomePage />} />
+          <Route path="/" element={<HomePage />} />
           <Route path="login" element={<LoginPage />} />
           <Route path="registration" element={<RegistrationPage />} />
           <Route path="textbook" element={<TextbookPage />} >

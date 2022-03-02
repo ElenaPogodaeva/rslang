@@ -4,7 +4,7 @@ import React, {useRef} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { 
   deleteWordsGame, setAnswer, setAnswerWords, 
-  setCardWordGame, setCountTrueAnswer, setEnd, 
+  setCardWordGame, setCountTrueAnswer, setDifficulty, setEnd, 
   setScore, setStart 
 } from "../../../../store/slices/sprintSlice";
 import { BuiletCircle } from "./builetCircle";
@@ -53,7 +53,7 @@ const GameSprint = () => {
     const mainNum = getRandom(0, words.length - 1);
     const secondNum = getRandom(0, words.length - 1);
     const cardsNum = getRandom(0, 2);
-
+debugger
     const mainCard: WordCard = words[mainNum] || {};
     const secondCard: WordCard = words[secondNum];
     const cards = [mainCard, secondCard];
@@ -67,6 +67,7 @@ const GameSprint = () => {
 
 
   const onAnswerClick = (answer: boolean) => {
+    debugger
     const cardWord = words.find((card: WordCard) => card.id === id);
 
     if(answer) {
@@ -125,22 +126,27 @@ const GameSprint = () => {
     onAnswerClick(answer);
   }
 
-  const answerKeyPress = (e: any) => {
+  const answerKeyPress = React.useCallback((e: any) => {
     if(e.code === 'ArrowLeft') {
+      debugger
       const answer = translate === answerTranslate;
 
       onAnswerClick(answer);
     }
 
     if(e.code === 'ArrowRight') {
-      const answer = translate !== answerTranslate;
+      debugger
+      const answer = translate !== translate;
     
       onAnswerClick(answer);
     }
-  }
+  }, [translate, translate, onAnswerClick]);
 
   React.useEffect(() => {
     generateCard();
+  } ,[])
+
+  React.useEffect(() => {
     window.addEventListener('keydown', answerKeyPress);
     const timer = setInterval(() => setTime(time => time - 1), 1000);
     
@@ -148,12 +154,16 @@ const GameSprint = () => {
       window.removeEventListener('keydown', answerKeyPress);
       clearInterval(timer);
     }
-  }, []);
+  }, [answerKeyPress]);
 
   React.useEffect(() => {
     if(!words.length || !time) {
-      dispatch(setStart({start: false}))
-      dispatch(setEnd({end: true}))
+      dispatch(setStart({start: false}));
+      dispatch(setEnd({end: true}));
+      dispatch(setScore({score: 0}));
+      dispatch(setCountTrueAnswer({countTrueAnswer: 0}));
+      dispatch(setDifficulty({difficulty: null}));
+      coef.current += 0;
     }
 
   }, [words, time]);

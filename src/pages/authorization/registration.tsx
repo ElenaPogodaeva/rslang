@@ -26,7 +26,7 @@ const RegistrationPage = () => {
 
      dispatch(setUser({token: loginUser.token, email: createUser.email, id: createUser.id, name: createUser.name}));
 
-     navigate('/rs-lang');
+     navigate('/');
 
     } catch (error) {
         setErrorMessage((error as Error).message);

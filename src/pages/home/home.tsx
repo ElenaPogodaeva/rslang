@@ -18,7 +18,7 @@ const HomePage = () => {
  const logOut = () => {
   dispatch(removeUser());
   localStorage.clear();
-  navigate('/rs-lang');
+  navigate('/');
  } 
  
   return (
